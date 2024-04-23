@@ -38,7 +38,6 @@ try:
         # Get all tasks
         print('Tasks:')
         tasks = gmp.get_tasks()
-        print(tasks)
 
         # Filter tasks based on target_id
         filtered_tasks = [task for task in tasks.xpath('task') if task.find('target').get('id') == target_id]
@@ -53,11 +52,40 @@ try:
 
         # Get config for Task
         # TODO: Automatically create this config if system is newly set up
-        config = gmp.get_scan_config('7d96db3e-546d-43a0-aaa9-3db73271e94c') # scan config for Full and fast Port
+        configs = gmp.get_scan_configs(filter_string='name=Full and fast Port')
+        print('Configs:')
+        print(configs)
+        for config in configs.xpath('config'):
+            if config.find('name').text == 'Full and fast Port':
+                config_id = config.get('id')
+            print(config.get('id'))
+            print(config.find('name').text)
+
+        # config = gmp.get_scan_config('7d96db3e-546d-43a0-aaa9-3db73271e94c') # scan config for Full and fast Port
+        # config_id = config.get('id')
+        # print('Config:')
+        # print(config_id)
+
+        scanners = gmp.get_scanners(filter_string='name=OpenVAS Default')
+        print('Scanners:')
+        print(scanners)
+        for scanner in scanners.xpath('scanner'):
+            if scanner.find('name').text == 'OpenVAS Default':
+                scanner_id = scanner.get('id')
+            print(scanner.get('id'))
+            print(scanner.find('name').text)
 
         # Create new Task for Target
-        task = gmp.create_task(task_name, config.get('id'), target_id, '08b69003-5fc2-4037-a479-93b440211c73')
-        print(task)
+
+        print('All in all:')
+        print(task_name)
+        print(config_id)
+        print(target_id)
+        print(scanner_id)
+
+        task = gmp.create_task(task_name, config_id, target_id, scanner_id)
+        print('Task:')
+        print(task.get('id'))
         print(task.get('status_text').text)
 
 except GvmError as e:
