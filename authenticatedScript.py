@@ -69,6 +69,7 @@ try:
         gmp.start_task(task_id)
 
         # TODO Next: Automatically forward the report to the host using Alerts either with SSH or TCP - Is there something already done by Clouditor?
+        # Or, using the already existing SSH connection when executing the script, we can send the report to the host
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
