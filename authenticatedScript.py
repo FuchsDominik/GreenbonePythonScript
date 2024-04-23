@@ -24,7 +24,7 @@ try:
         targets = gmp.get_targets()
 
         for target in targets.xpath('target'):
-            if target.find('hosts').text == '10.33.168.54':
+            if target.find('hosts').text == '10.33.168.86':
                 target_id = target.get('id')
 
         # Get all tasks
