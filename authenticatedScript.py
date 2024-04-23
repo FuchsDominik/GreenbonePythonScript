@@ -36,23 +36,27 @@ try:
         #     print(task.get('id'))
         #     print(task.find('name').text)
         # Get all tasks
+        print('Tasks:')
         tasks = gmp.get_tasks()
+        print(tasks)
 
         # Filter tasks based on target_id
         filtered_tasks = [task for task in tasks.xpath('task') if task.find('target').get('id') == target_id]
 
         # Count the number of tasks for the target
         task_count = len(filtered_tasks)
+        print(task_count)
 
         # Now, when creating a new task, you can use this count to append an ascending number to the task name
         task_name = f'Automated Scan {task_count + 1}'
+        print(task_name)
 
         # Get config for Task
         # TODO: Automatically create this config if system is newly set up
         config = gmp.get_scan_config('7d96db3e-546d-43a0-aaa9-3db73271e94c') # scan config for Full and fast Port
 
         # Create new Task for Target
-        task = gmp.create_task(task_name, config.get('id'), target_id)
+        task = gmp.create_task(task_name, config.get('id'), target_id, '08b69003-5fc2-4037-a479-93b440211c73')
         print(task)
         print(task.get('status_text').text)
 
