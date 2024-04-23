@@ -18,7 +18,7 @@ try:
     with Gmp(connection=connection, transform=transform) as gmp:
         gmp.authenticate(username, password)
 
-        tasks = gmp.get_tasks(filter_string='name~weekly')
+        tasks = gmp.get_tasks()
 
         for task in tasks.xpath('task'):
             print(task.find('name').text)
