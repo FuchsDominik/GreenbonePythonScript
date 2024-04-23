@@ -86,7 +86,7 @@ try:
         task = gmp.create_task(task_name, config_id, target_id, scanner_id)
         print('Task:')
         print(task.get('id'))
-        print(task.get('status_text').text)
+        print(task.get('status_text'))
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
