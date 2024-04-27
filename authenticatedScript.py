@@ -101,7 +101,7 @@ try:
         file_name = 'output.xml'
 
         # Write the XML string to a file
-        with open(file_name, 'wb', encoding='utf-8') as file:
+        with open(file_name, 'wb') as file:
             file.write(xml_string)
 
 
