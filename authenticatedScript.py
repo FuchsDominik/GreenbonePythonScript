@@ -71,18 +71,26 @@ try:
 
         # TODO Next: Automatically forward the report to the host using Alerts either with SSH or TCP - Is there something already done by Clouditor?
         # Or, using the already existing SSH connection when executing the script, we can send the report to the host 
-        print('Report Formats:')
+        # 5057e5cc-b825-11e4-9d0e-28d24461215b
         formats = gmp.get_report_formats()
         for format in formats.xpath('report_format'):
-            print(format.find('name').text)
-            print(format.get('id'))
-        print('Report Formats END')
-        # print(formats)
+            if format.find('name').text == 'Anonymous XML':
+                report_format_id = format.get('id')
+                print(format.find('name').text)
 
-
-        # while(True): 
-        #     report = gmp.get_report 
-        #     time.sleep(60) 
+        
+        while(True):
+            time.sleep(20)
+            reports = gmp.get_reports(filter_string='task="CLI Scan"')
+            for report in reports.xpath('report'):
+                if report.find('task').find('name') == 'CLI Scan': # if report.find('task').get('id') == task_id:
+                    wantedReport = report
+                    print(report.find('name').text)
+            print(wantedReport)
+            if wantedReport == None:  # The condition for stopping the loop
+                break
+        print('Report found')
+        print(wantedReport.get('id'))
 
 
 except GvmError as e:
