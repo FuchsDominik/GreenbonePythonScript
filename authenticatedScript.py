@@ -81,14 +81,15 @@ try:
         
         while(True):
             time.sleep(20)
-            reports = gmp.get_reports(filter_string='task="CLI Scan"')
+            reports = gmp.get_reports() # filter_string='task="CLI Scan"'
             for report in reports.xpath('report'):
                 if report.find('task').find('name') == 'CLI Scan': # if report.find('task').get('id') == task_id:
                     wantedReport = report
                     print(report.find('name').text)
-            print(wantedReport)
-            if wantedReport == None:  # The condition for stopping the loop
+            print('Das war alles')
+            if wantedReport != None:  # The condition for stopping the loop
                 break
+        print(wantedReport)
         print('Report found')
         print(wantedReport.get('id'))
 
