@@ -98,7 +98,7 @@ try:
         # xml_string = etree.tostring(wantedReport, pretty_print=True, encoding='UTF-8').decode('UTF-8')
         xml_string = tostring(wantedReport)
         # Choose a file name for your XML file
-        file_name = 'output.xml'
+        file_name = '/tmp/output.xml'
 
         # Write the XML string to a file
         with open(file_name, 'wb') as file:
