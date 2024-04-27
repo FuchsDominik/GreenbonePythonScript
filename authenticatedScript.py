@@ -96,7 +96,7 @@ try:
         # Alternative solution is to save the file locally in a shared folder and let the host take it out
         # Convert the Element to a string
         # xml_string = etree.tostring(wantedReport, pretty_print=True, encoding='UTF-8').decode('UTF-8')
-        xml_string = tostring(wantedReport, 'utf-8', method="xml")
+        xml_string = tostring(wantedReport)
         # Choose a file name for your XML file
         file_name = 'output.xml'
 
