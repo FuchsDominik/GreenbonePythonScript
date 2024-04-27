@@ -71,11 +71,12 @@ try:
 
         # TODO Next: Automatically forward the report to the host using Alerts either with SSH or TCP - Is there something already done by Clouditor?
         # Or, using the already existing SSH connection when executing the script, we can send the report to the host 
+        print('Report Formats:')
         formats = gmp.get_report_formats()
         for format in formats.xpath('report_format'):
             print(format.find('name').text)
             print(format.get('id'))
-        print('Report Formats:')
+        print('Report Formats END')
         # print(formats)
 
 
