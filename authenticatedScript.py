@@ -1,4 +1,5 @@
 import sys
+import time
 
 from gvm.connections import UnixSocketConnection
 from gvm.errors import GvmError
@@ -59,17 +60,26 @@ try:
         print(target_id)
         print(scanner_id)
 
-        task = gmp.create_task(task_name, config_id, target_id, scanner_id)
-        task_id = task.get('id')
+        # task = gmp.create_task(task_name, config_id, target_id, scanner_id)
+        # task_id = task.get('id')
         print('Created Task:')
-        print(task_id)
-        print(task.get('status_text'))
+        # print(task_id)
+        # print(task.get('status_text'))
 
         # START TASK
-        gmp.start_task(task_id)
+        # gmp.start_task(task_id)
 
         # TODO Next: Automatically forward the report to the host using Alerts either with SSH or TCP - Is there something already done by Clouditor?
-        # Or, using the already existing SSH connection when executing the script, we can send the report to the host
+        # Or, using the already existing SSH connection when executing the script, we can send the report to the host 
+        formats = gmp.get_report_formats()
+        print('Report Formats:')
+        print(formats)
+
+
+        while(True): 
+            report = gmp.get_report 
+            time.sleep(60) 
+
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
