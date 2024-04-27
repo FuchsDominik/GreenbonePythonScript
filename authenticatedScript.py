@@ -76,25 +76,28 @@ try:
         for format in formats.xpath('report_format'):
             if format.find('name').text == 'Anonymous XML':
                 report_format_id = format.get('id')
-                print(format.find('name').text)
 
         wantedReport = None
         
         while(True):
-            time.sleep(5)
-            reports = gmp.get_reports() # filter_string='task="CLI Scan"'
+            time.sleep(30)
+            reports = gmp.get_reports()
             for report in reports.xpath('report'):
                 potentialTask = report.find('task')
-                print(potentialTask.find('name').text)
                 if potentialTask.find('name').text == 'CLI Scan': # if report.find('task').get('id') == task_id:
                     wantedReport = report
-                    print(report.find('name').text)
-            print('Das war alles')
             if wantedReport != None:  # The condition for stopping the loop
                 break
-        print(wantedReport)
-        print('Report found')
-        print(wantedReport.get('id'))
+        print('Report found:')
+        print(wantedReport.find('name').text)
+
+        # Alternative solution is to save the file locally in a shared folder and let the host take it out
+        # Choose a file name for your XML file
+        file_name = 'output.xml'
+
+        # Write the XML string to a file
+        with open(file_name, 'w', encoding='utf-8') as file:
+            file.write(wantedReport)
 
 
 except GvmError as e:
