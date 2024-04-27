@@ -78,6 +78,7 @@ try:
                 report_format_id = format.get('id')
                 print(format.find('name').text)
 
+        wantedReport = None
         
         while(True):
             time.sleep(20)
