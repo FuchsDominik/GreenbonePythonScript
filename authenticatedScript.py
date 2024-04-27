@@ -6,7 +6,7 @@ from gvm.errors import GvmError
 from gvm.protocols.gmp import Gmp
 from gvm.transforms import EtreeCheckCommandTransform
 
-from lxml import etree
+from lxml.etree import tostring
 
 path = '/run/gvmd/gvmd.sock'
 connection = UnixSocketConnection(path=path)
@@ -95,8 +95,8 @@ try:
 
         # Alternative solution is to save the file locally in a shared folder and let the host take it out
         # Convert the Element to a string
-        xml_string = etree.tostring(wantedReport, pretty_print=True, encoding='UTF-8').decode('UTF-8')
-        
+        # xml_string = etree.tostring(wantedReport, pretty_print=True, encoding='UTF-8').decode('UTF-8')
+        xml_string = tostring(wantedReport)
         # Choose a file name for your XML file
         file_name = 'output.xml'
 
