@@ -6,6 +6,8 @@ from gvm.errors import GvmError
 from gvm.protocols.gmp import Gmp
 from gvm.transforms import EtreeCheckCommandTransform
 
+from lxml import etree
+
 path = '/run/gvmd/gvmd.sock'
 connection = UnixSocketConnection(path=path)
 transform = EtreeCheckCommandTransform()
@@ -80,7 +82,7 @@ try:
         wantedReport = None
         
         while(True):
-            time.sleep(30)
+            time.sleep(5)
             reports = gmp.get_reports()
             for report in reports.xpath('report'):
                 potentialTask = report.find('task')
@@ -89,15 +91,18 @@ try:
             if wantedReport != None:  # The condition for stopping the loop
                 break
         print('Report found:')
-        print(wantedReport.find('name').text)
+        print(wantedReport.tostring())
 
         # Alternative solution is to save the file locally in a shared folder and let the host take it out
+        # Convert the Element to a string
+        xml_string = etree.tostring(wantedReport, pretty_print=True, encoding='UTF-8').decode('UTF-8')
+        
         # Choose a file name for your XML file
         file_name = 'output.xml'
 
         # Write the XML string to a file
         with open(file_name, 'w', encoding='utf-8') as file:
-            file.write(wantedReport)
+            file.write(xml_string)
 
 
 except GvmError as e:
