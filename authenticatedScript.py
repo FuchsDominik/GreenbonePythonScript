@@ -86,7 +86,7 @@ try:
         
         while(True):
             time.sleep(5)
-            reports = gmp.get_reports()
+            reports = gmp.get_reports(ignore_pagination=True, details=True)
             for report in reports.xpath('report'):
                 potentialTask = report.find('task')
                 if potentialTask.find('name').text == 'CLI Scan': # if report.find('task').get('id') == task_id:
