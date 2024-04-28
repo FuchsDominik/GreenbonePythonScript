@@ -8,6 +8,9 @@ from gvm.transforms import EtreeCheckCommandTransform
 
 from lxml.etree import tostring
 
+# We need a name for the output to uniquely identify the file afterwards
+name = sys.argv[1]
+
 path = '/run/gvmd/gvmd.sock'
 connection = UnixSocketConnection(path=path)
 transform = EtreeCheckCommandTransform()
@@ -98,7 +101,7 @@ try:
         # xml_string = etree.tostring(wantedReport, pretty_print=True, encoding='UTF-8').decode('UTF-8')
         xml_string = tostring(wantedReport)
         # Choose a file name for your XML file
-        file_name = '/tmp/output.xml'
+        file_name = f'/tmp/${name}.xml'
 
         # Write the XML string to a file
         with open(file_name, 'wb') as file:
