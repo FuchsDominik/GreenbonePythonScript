@@ -9,7 +9,7 @@ from gvm.transforms import EtreeCheckCommandTransform
 from lxml.etree import tostring
 
 # We need a name for the output to uniquely identify the file afterwards
-name = sys.argv[1]
+name = str(sys.argv[1])
 
 path = '/run/gvmd/gvmd.sock'
 connection = UnixSocketConnection(path=path)
