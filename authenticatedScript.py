@@ -65,14 +65,14 @@ try:
         print(target_id)
         print(scanner_id)
 
-        # task = gmp.create_task(task_name, config_id, target_id, scanner_id)
-        # task_id = task.get('id')
+        task = gmp.create_task(task_name, config_id, target_id, scanner_id)
+        task_id = task.get('id')
         print('Created Task:')
-        # print(task_id)
+        print(task_id)
         # print(task.get('status_text'))
 
         # START TASK
-        # gmp.start_task(task_id)
+        gmp.start_task(task_id)
 
         # TODO Next: Automatically forward the report to the host using Alerts either with SSH or TCP - Is there something already done by Clouditor?
         # Or, using the already existing SSH connection when executing the script, we can send the report to the host 
@@ -89,7 +89,7 @@ try:
             reports = gmp.get_reports(ignore_pagination=True, details=True)
             for report in reports.xpath('report'):
                 potentialTask = report.find('task')
-                if potentialTask.find('name').text == 'CLI Scan': # if report.find('task').get('id') == task_id:
+                if report.find('task').get('id') == task_id: # if potentialTask.find('name').text == 'CLI Scan':
                     wantedReport = report
             if wantedReport != None:  # The condition for stopping the loop
                 break
