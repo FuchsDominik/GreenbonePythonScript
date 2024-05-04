@@ -30,7 +30,7 @@ try:
         targets = gmp.get_targets()
 
         for target in targets.xpath('target'):
-            if target.find('hosts').text == '10.33.168.86':
+            if target.find('hosts').text == '192.168.178.102': # Adapt IP address if necessary
                 target_id = target.get('id')
 
         # Get all tasks
