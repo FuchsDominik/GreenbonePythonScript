@@ -17,10 +17,11 @@ def check_scan_status(gmp, scan_id):
 def get_target_id(gmp):
     targets = gmp.get_targets()
     for target in targets.xpath('target'):
-        if target.find('hosts').text == '192.168.178.102': # Adapt IP address if necessary
+        if target.find('hosts').text == '10.33.168.52': # Adapt IP address if necessary
             return target.get('id')
 
 def get_config_id(gmp):
+    # TODO: Automatically create this config if system is newly set up
     configs = gmp.get_scan_configs(filter_string='name=Full and fast Port')
     for config in configs.xpath('config'):
         if config.find('name').text == 'Full and fast Port':
@@ -57,20 +58,15 @@ def main():
             # Get all tasks
             tasks = gmp.get_tasks()
 
-            # Filter tasks based on target_id
-            filtered_tasks = [task for task in tasks.xpath('task') if task.find('target').get('id') == target_id]
-
-            # Count the number of tasks for the target
-            task_count = len(filtered_tasks)
-
             # Create the name for the new task, in ascending order
+            filtered_tasks = [task for task in tasks.xpath('task') if task.find('target').get('id') == target_id]
+            task_count = len(filtered_tasks)
             task_name = f'Automated Scan {task_count + 1}'
 
             # Get config for Task
-            # TODO: Automatically create this config if system is newly set up
-
             config_id = get_config_id(gmp)
 
+            # Get scanner for Task
             scanner_id = get_scanner_id(gmp)
 
             # Create new Task for Target
